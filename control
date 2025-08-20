@@ -1,0 +1,9 @@
+Package: yenAlert
+Name: Alert 
+Depends: mobilesubstrate
+Version: 111.0
+Architecture: iphoneos-arm
+Description: 
+Maintainer: ct
+Author: ct
+Section: Tweaks
