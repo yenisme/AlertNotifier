@@ -13,10 +13,14 @@ $(TWEAK_NAME)_FRAMEWORKS = UIKit
 $(TWEAK_NAME)_CCFLAGS = -std=c++11 -fno-rtti -fno-exceptions -DNDEBUG
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc
 
-# Thêm FLAnimatedImage vào danh sách file
+# Bao gồm thư viện FLAnimatedImage vào quá trình biên dịch
 $(TWEAK_NAME)_FILES = \
     Alert.mm \
     Vendor/FLAnimatedImage/FLAnimatedImage.m \
     Vendor/FLAnimatedImage/FLAnimatedImageView.m
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+
+# Sau khi cài tweak, tự động copy file GIF vào thiết bị
+after-install::
+	install.exec "cp $(THEOS_PROJECT_DIR)/Resources/yen.gif /Library/Application\\ Support/AlertNotifier/"
