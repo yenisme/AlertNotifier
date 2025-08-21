@@ -1,17 +1,21 @@
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImage.h"
 #import "FLAnimatedImageView.h"
-
+#import "FPSDisplay.h"
 __attribute__((constructor))
 static void showAlertAfterLaunch() {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-
+                   [[FPSDisplay sharedInstance] start];
         UIAlertController *alert =
         [UIAlertController alertControllerWithTitle:@"Khổng Mạnh Yên"
                                             message:@"Inbox thì cứ thêm vài từ \"Mình sẽ trả phí\" là được 😆"
                                      preferredStyle:UIAlertControllerStyleAlert];
-
+// ====== Tiêu đề xanh lá ======
+NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Khổng Mạnh Yên"];
+[title addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, title.length)];
+[title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, title.length)];
+[alert setValue:title forKey:@"attributedTitle"];
         // ====== Load GIF ======
         NSString *gifPath = @"/Library/Application Support/AlertNotifier/yen.gif";
         NSData *gifData = [NSData dataWithContentsOfFile:gifPath];
@@ -42,6 +46,8 @@ static void showAlertAfterLaunch() {
                                          completionHandler:nil];
             }
         }];
+        //nút Website
+[openLink setValue:[UIColor systemPinkColor] forKey:@"titleTextColor"];
         [alert addAction:openLink];
 
         // Hiển thị Alert
